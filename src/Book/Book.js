@@ -1,43 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Book extends Component {
+const Book = (props) => {
     
     
-    onChangeBookStatus=(event,book) => {
-        event.preventDefault();
-      
-        if(this.props.onChangeBookStatus){
-            this.props.onChangeBookStatus(event.target.value,book);
-        }
-    }
-    render(){
-        return <div>
-            {typeof this.props.book !== "undefined" ? <div className="book">
-                <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof this.props.book.imageLinks != "undefined" && this.props.book.imageLinks["thumbnail"]})` }} />
-                  <div className="book-shelf-changer">
-                    <select defaultValue={this.props.book.shelf || "none"} onChange={(e) => this.onChangeBookStatus(e, this.props.book)}>
-                      <option value="move" disabled>
-                        Move to...
-                      </option>
-                      <option value="currentlyReading">
-                        Currently Reading
-                      </option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="book-title">
-                  {this.props.book.title}
-                </div>
-                <div className="book-authors">
-                  {typeof this.props.book.authors !== "undefined" && this.props.book.authors.join()}
-                </div>
-              </div> : <div />}
-          </div>;
-    }
+  const onChangeBookStatus=(event,book) => {
+      event.preventDefault();
+      if(props.onChangeBookStatus){
+          props.onChangeBookStatus(event.target.value,book);
+      }
+  }
+  return(
+    <div>
+      {typeof props.book !== "undefined" ? <div className="book">
+          <div className="book-top">
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof props.book.imageLinks != "undefined" && props.book.imageLinks["thumbnail"]})` }} />
+            <div className="book-shelf-changer">
+              <select defaultValue={props.book.shelf || "none"} onChange={(e) => onChangeBookStatus(e, props.book)}>
+                <option value="move" disabled>
+                  Move to...
+                </option>
+                <option value="currentlyReading">
+                  Currently Reading
+                </option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+          </div>
+          <div className="book-title">
+            {props.book.title}
+          </div>
+          <div className="book-authors">
+            {typeof props.book.authors !== "undefined" && props.book.authors.join()}
+          </div>
+        </div> : <div />}
+    </div>
+  )
 }
 
 export default Book 
