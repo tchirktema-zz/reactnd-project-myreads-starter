@@ -8,14 +8,17 @@ class SearchPage extends Component {
     books: [],
   };
 
-  componentDidMount() {
-    this.setState(() => ({ books: [] }));
-  }
 
   searchBook = (query) => {
     if(query !== '') {
       BooksAPI.search(query).then((books) => {
-        this.setState(() => ({ books: books }));
+        if(books instanceof Array && books.length > 0) {
+          this.setState(() => ({ books: books }));
+        }else {
+          this.setState((currentState) => ({ books: currentState.books }));
+        }
+      }).catch((error) => {
+        console.log(error)
       });
     } else {
       this.setState(() => ({ books: [] }));

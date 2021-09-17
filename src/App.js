@@ -7,7 +7,6 @@ import LibaryBook from './LibaryBook';
 
 class BooksApp extends React.Component {
   state = {
-    showSearchPage: false,
     books: [],
     currentlyReading: [],
     read: [],
@@ -66,8 +65,7 @@ class BooksApp extends React.Component {
             wantToRead = {this.state.wantToRead}
             />} />
         <Route  path="/search" render={() => <SearchPage 
-          onChangeBookStatus={this.onChangeBookStatus} 
-          onSearch={this.searchBook} 
+          onChangeBookStatus={this.onChangeBookStatus}
           library={this.state.books}/>} />
         
       </div>;

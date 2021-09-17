@@ -14,9 +14,9 @@ class Book extends Component {
         return <div>
             {typeof this.props.book !== "undefined" ? <div className="book">
                 <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof this.props.book.imageLinks != 'undefined' && this.props.book.imageLinks["thumbnail"]})` }} />
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof this.props.book.imageLinks != "undefined" && this.props.book.imageLinks["thumbnail"]})` }} />
                   <div className="book-shelf-changer">
-                    <select defaultValue={this.props.book.shelf} onChange={(e) => this.onChangeBookStatus(e, this.props.book)}>
+                    <select defaultValue={this.props.book.shelf || "none"} onChange={(e) => this.onChangeBookStatus(e, this.props.book)}>
                       <option value="move" disabled>
                         Move to...
                       </option>
@@ -33,11 +33,7 @@ class Book extends Component {
                   {this.props.book.title}
                 </div>
                 <div className="book-authors">
-                  {typeof this.props.book.authors !== "undefined" && this.props.book.authors.map(
-                      (author, index) => {
-                        return <span key={index}>{author}</span>;
-                      }
-                    )}
+                  {typeof this.props.book.authors !== "undefined" && this.props.book.authors.join()}
                 </div>
               </div> : <div />}
           </div>;

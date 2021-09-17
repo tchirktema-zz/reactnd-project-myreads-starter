@@ -7,77 +7,50 @@ class LibaryBook extends Component {
       this.props.onChangeBookStatus(shelf, book);
     }
   };
+
+  
   render() {
-    return (
-      <div className="list-books">
+    const shelves = [
+      { title: "Currently Reading", key: "currentlyReading" },
+      { title: "Want To Read", key: "wantToRead" }, 
+      { title: "Read", key: "read" }
+    ];
+
+    return <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {typeof this.props.currentlyReading != "undefined" &&
-                    this.props.currentlyReading.map((book, index) => {
-                      return (
-                        <li key={book.id}>
-                          <Book
-                            book={book}
-                            onChangeBookStatus={this.onChangeBookStatus}
-                          />
-                        </li>
-                      );
-                    })}
-                </ol>
+            {shelves.map((shelve, index) => (
+              <div className="bookshelf" key={index}>
+                <h2 className="bookshelf-title">{shelve.title}</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {typeof this.props[shelve.key] != "undefined" &&
+                      this.props[shelve.key].map((book, index) => {
+                        return (
+                          <li key={book.id}>
+                            <Book
+                              book={book}
+                              onChangeBookStatus={this.onChangeBookStatus}
+                            />
+                          </li>
+                        );
+                      })}
+                  </ol>
+                </div>
               </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {typeof this.props.wantToRead != "undefined" &&
-                    this.props.wantToRead.map((book, index) => {
-                      return (
-                        <li key={book.id}>
-                          <Book
-                            book={book}
-                            onChangeBookStatus={this.onChangeBookStatus}
-                          />
-                        </li>
-                      );
-                    })}
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  {typeof this.props.read != "undefined" &&
-                    this.props.read.map((book, index) => {
-                      return (
-                        <li key={book.id}>
-                          <Book
-                            book={book}
-                            onChangeBookStatus={this.onChangeBookStatus}
-                          />
-                        </li>
-                      );
-                    })}
-                </ol>
-              </div>
-            </div>
+            ))}
+            
           </div>
         </div>
         <div className="open-search">
           <Link to="/search">
-            <button>Add a book</button>
+            Add a book
           </Link>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 
